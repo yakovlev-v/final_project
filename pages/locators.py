@@ -7,3 +7,11 @@ class MainPageLocators():
 class LoginPageLocators():
     REGISTRATION_FORM = (By.CSS_SELECTOR, ".register_form")
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
+
+
+class BasketLocators():
+    BASKET_BUTTON = (By.CSS_SELECTOR, ".btn-add-to-basket")
+    PRODUCT_NAME = (By.CSS_SELECTOR, ".product_main h1")
+    ADDED_PRODUCT_NAME = (By.CSS_SELECTOR, "#messages .in:first-of-type strong")
+    BASKET_ADDED_MESSAGE = (By.CSS_SELECTOR, "#messages .in:first-of-type")
+    PRODUCT_ON_PAGE_NAME = (By.CSS_SELECTOR, ".product_main h1")
