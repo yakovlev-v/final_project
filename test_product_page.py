@@ -10,4 +10,6 @@ def test_guest_can_add_product_to_basket(browser):
     page.solve_quiz_and_get_code()
     page.product_added_to_basket()
     page.product_name_matches()
+    page.should_be_total_basket_price()
+    page.basket_price_match_with_pruduct_price()
     # time.sleep(600)
