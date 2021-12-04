@@ -1,10 +1,16 @@
 from .pages.product_page import ProductPage
 from .pages.main_page import MainPage
 import time
+import pytest
 
-def test_guest_can_add_product_to_basket(browser):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
-    page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+
+@pytest.mark.parametrize('offer_number', [0, 1, 2, 3, 4, 5, 6,
+                                          pytest.param(7, marks=pytest.mark.xfail(reason="this bug will never fixed")),
+                                          8, 9])
+def test_guest_can_add_product_to_basket(browser, offer_number):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer" + str(offer_number)
+    page = ProductPage(browser,
+                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
     page.open()
     page.add_to_basket()
     page.solve_quiz_and_get_code()
