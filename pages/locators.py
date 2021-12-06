@@ -18,6 +18,9 @@ class BasketLocators():
     BASKET_TOTAL_MESSAGE = (By.CSS_SELECTOR, "#messages .in:nth-of-type(3)")
     PRICE_OF_PRODUCT = (By.CSS_SELECTOR, "p.price_color")
     BASKET_TOTAL_PRICE = (By.CSS_SELECTOR, "#messages .in:nth-of-type(3) strong")
+    PRODUCT_IN_BASKET = (By.CSS_SELECTOR, ".thumbnail")
+    BASKET_IS_EMPTY_TEXT = (By.CSS_SELECTOR,"#content_inner>p")
+    BASKET_PAGE_LINK = (By.CSS_SELECTOR, ".btn-group")
 
 
 class BasePageLocators():
