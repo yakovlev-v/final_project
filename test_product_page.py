@@ -19,3 +19,31 @@ def test_guest_can_add_product_to_basket(browser, offer_number):
     page.should_be_total_basket_price()
     page.basket_price_match_with_pruduct_price()
     # time.sleep(600)
+
+
+@pytest.mark.xfail(reason="¯\_(ツ)_/¯")
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser,
+                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()
+    page.add_to_basket()
+    page.should_not_be_success_message()
+
+
+def test_guest_cant_see_success_message(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser,
+                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()
+    page.should_not_be_success_message()
+
+
+@pytest.mark.xfail(reason="¯\_(ツ)_/¯")
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser,
+                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()
+    page.add_to_basket()
+    page.should_not_be_success_message_with_is_disappeared()
