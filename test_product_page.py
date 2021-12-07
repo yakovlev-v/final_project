@@ -10,8 +10,7 @@ import pytest
                                           8, 9])
 def test_guest_can_add_product_to_basket(browser, offer_number):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer" + str(offer_number)
-    page = ProductPage(browser,
-                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page = ProductPage(browser, link)
     page.open()
     page.add_to_basket()
     page.solve_quiz_and_get_code()
@@ -25,8 +24,7 @@ def test_guest_can_add_product_to_basket(browser, offer_number):
 @pytest.mark.xfail(reason="¯\_(ツ)_/¯")
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = ProductPage(browser,
-                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page = ProductPage(browser, link)
     page.open()
     page.add_to_basket()
     page.should_not_be_success_message()
@@ -34,8 +32,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
 
 def test_guest_cant_see_success_message(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = ProductPage(browser,
-                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page = ProductPage(browser, link)
     page.open()
     page.should_not_be_success_message()
 
@@ -43,8 +40,7 @@ def test_guest_cant_see_success_message(browser):
 @pytest.mark.xfail(reason="¯\_(ツ)_/¯")
 def test_message_disappeared_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = ProductPage(browser,
-                       link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page = ProductPage(browser, link)
     page.open()
     page.add_to_basket()
     page.should_not_be_success_message_with_is_disappeared()
@@ -79,22 +75,19 @@ class TestUserAddToBasketFromProductPage():
         login_page = LoginPage(browser, browser.current_url)
         login_page.should_be_login_page()
         login_page.register_new_user(email, password)
-        login_page.should_be_login_page()
+        login_page.should_be_authorized_user()
 
     def test_user_cant_see_success_message(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-        page = ProductPage(browser,
-                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page = ProductPage(browser, link)
         page.open()
         page.should_not_be_success_message()
 
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-        page = ProductPage(browser,
-                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page = ProductPage(browser, link)
         page.open()
         page.add_to_basket()
-        page.solve_quiz_and_get_code()
         page.product_added_to_basket()
         page.product_name_matches()
         page.should_be_total_basket_price()
