@@ -1,10 +1,12 @@
 from .pages.product_page import ProductPage
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
+from .pages.basket_page import BasketPage
 import time
 import pytest
 
 
+@pytest.mark.need_review
 @pytest.mark.parametrize('offer_number', [0, 1, 2, 3, 4, 5, 6,
                                           pytest.param(7, marks=pytest.mark.xfail(reason="this bug will never fixed")),
                                           8, 9])
@@ -18,7 +20,6 @@ def test_guest_can_add_product_to_basket(browser, offer_number):
     page.product_name_matches()
     page.should_be_total_basket_price()
     page.basket_price_match_with_pruduct_price()
-    # time.sleep(600)
 
 
 @pytest.mark.xfail(reason="¯\_(ツ)_/¯")
@@ -62,7 +63,28 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page.should_be_login_form()
 
 
-@pytest.mark.new
+@pytest.mark.need_review
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/"
+    page = MainPage(browser, link)
+    page.open()
+    page.go_to_basket_page()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_not_be_product()
+    basket_page.should_be_empty_text()
+
+
+@pytest.mark.need_review
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = MainPage(browser, link)
+    page.open()
+    page.go_to_basket_page()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_not_be_product()
+    basket_page.should_be_empty_text()
+
+
 class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
@@ -81,6 +103,7 @@ class TestUserAddToBasketFromProductPage():
         page.open()
         page.should_not_be_success_message()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
         page = ProductPage(browser, link)
